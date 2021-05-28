@@ -2,7 +2,7 @@
 Android离线语音合成   
 [![](https://jitpack.io/v/cczhr/voice-tts.svg)](https://jitpack.io/#cczhr/voice-tts)
 
-#说明
+# 说明
 将Releases里面的lib.zip解压放到项目路径中
 在Project 的 build.gradle 加上
 
