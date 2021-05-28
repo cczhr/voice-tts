@@ -2,20 +2,13 @@ package com.cczhr.voicetts;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.media.AudioFormat;
-import android.media.AudioManager;
-import android.media.AudioTrack;
+
 import android.os.Bundle;
-import android.speech.tts.SynthesisCallback;
-import android.speech.tts.SynthesisRequest;
+
 import android.view.View;
 
 import com.cczhr.TTS;
-import com.cczhr.TTSConstants;
-import com.iflytek.aisound.Aisound;
-import com.iflytek.business.SpeechConfig;
-import com.iflytek.speechcloud.TtsService;
-import com.iflytek.speechcloud.tts.impl.AisoundEngine;
+
 
 public class MainActivity extends AppCompatActivity {
     private TTS tts;
