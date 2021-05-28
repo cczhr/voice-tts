@@ -1,0 +1,20 @@
+#BNF+IAT 1.0 UTF-8;
+!grammar talkgo;
+!slot <contact>; 
+!slot <apps>; 
+!slot <premain>;
+!slot <preapp>;
+!slot <fixmain>;
+!ref <dict>;
+!start <testing>;
+<testing>: <action1> | <action2> | <action3>;
+<action1>: <premain><contact>[<dict>];
+<action2>: 给!id(10040)<contact><fixmain>[<dict>];
+<action3>: <preapp><apps>;
+<dict>:wfst;
+<premain>:打个电话给!id(10010)|打电话给!id(10010)|打给!id(10010)|拨打!id(10010)|呼叫!id(10010)|发短信给!id(10020)|发信息给!id(10020);
+<preapp>:打开!id(10030)|启动!id(10030);
+<fixmain>:打电话!id(10010)|发短信!id(10020)|发信息!id(10020);
+
+<apps>:应用名称;
+<contact>:联系人名称;
