@@ -1,0 +1,3 @@
+include ':tts'
+include ':app'
+rootProject.name = "VoiceTTS"
