@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.SystemClock;
 import android.speech.tts.SynthesisCallback;
+import android.util.Log;
 
 import com.iflytek.business.SpeechConfig;
 import com.iflytek.speechcloud.TtsService;
@@ -31,6 +32,7 @@ public class TTS implements SynthesisCallback {
     private volatile int tone = 8000;//音调
     private Context context;
     private volatile boolean loop = true;
+    private volatile boolean isSpeaking = false;
     private Queue<String> textQueue;
     private volatile String text = null;
     private volatile boolean isFlush = false;//音调
@@ -171,6 +173,13 @@ public class TTS implements SynthesisCallback {
         context=null;
     }
 
+    /**
+     * 是否正在播放语音
+     * @return true 表示正在播放中 false 表示已经播放完毕
+     */
+    public boolean isSpeaking() {
+        return !(!isSpeaking&&textQueue.size()==0);
+    }
 
     @Override
     public int getMaxBufferSize() {
@@ -179,6 +188,7 @@ public class TTS implements SynthesisCallback {
 
     @Override
     public int start(int sampleRateInHz, int audioFormat, int channelCount) {
+        isSpeaking=true;
         return 0;
     }
 
@@ -191,6 +201,7 @@ public class TTS implements SynthesisCallback {
 
     @Override
     public int done() {
+        isSpeaking=false;
         return 0;
     }
 
