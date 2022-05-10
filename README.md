@@ -3,7 +3,7 @@ Android离线语音合成
 [![](https://jitpack.io/v/cczhr/voice-tts.svg)](https://jitpack.io/#cczhr/voice-tts)
 
 # 说明
-将Releases里面的lib.zip里面的so 放到项目lib路径中  
+将Releases 1.0.0 里面的lib.zip里面的so 放到项目lib路径中
 在Project 的 build.gradle 加上
 
 ```groovy
