@@ -110,13 +110,19 @@ public class TtsService  {
                 return 0;
         }
     }
+    public int convertToLocalParam(int value) {
+        if (value < 0 || value > 100) {
+            return 0;
+        }
+        return ((value - 50) * ivTTS_SPEED_MAX) / 50;
+    }
 
     /* access modifiers changed from: protected */
 
 
     //Gets the speech rate to use. The normal rate is 100.
     @SuppressLint("WrongConstant")
-    public synchronized void onSynthesizeText(String text,int rate, SynthesisCallback callback) {
+    public synchronized void onSynthesizeText(String text,int rate, int pitch,SynthesisCallback callback) {
         String resPath;
         String newRole = SpeechConfig.getString(context, SpeechConfig.KEY_SPEAKER_SETTING, "xiaoyan");
         String tempPath = String.valueOf(AiConstants.getPath(context)) + newRole + AiConstants.TTS_RESOURCE_AUFFIX_IRF;
@@ -134,7 +140,7 @@ public class TtsService  {
         Log.e(TAG, "onSynthesizeText---3--");
         callback.start(16000, 2, 1);
         LogAgent.getLogAgent().onStatistic((Context) null, LogAgent.KEY_SUB_TYPE_SERVICE, LogConstants.LOG_BINDER_SUB_TYPE_TTS_LOCAL);
-        this.mAisound.speak(text, 0, 0, 0, convertToLocalSpeecd(rate), 0, 0, this.mAisoundListener);// convertToLocalSpeecd(rate)
+        this.mAisound.speak(text, 0, 0, 0, convertToLocalSpeecd(rate), convertToLocalParam(pitch), 50, this.mAisoundListener);// convertToLocalSpeecd(rate)
         Log.e(TAG, "onSynthesizeText---4--");
         callback.done();
 
