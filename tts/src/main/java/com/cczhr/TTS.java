@@ -7,7 +7,6 @@ import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.SystemClock;
 import android.speech.tts.SynthesisCallback;
-import android.util.Log;
 
 import com.iflytek.business.SpeechConfig;
 import com.iflytek.speechcloud.TtsService;
@@ -29,7 +28,7 @@ public class TTS implements SynthesisCallback {
     @SuppressLint("StaticFieldLeak")
     private static TTS singleton;
     private volatile int rate = 100;//速度
-    private volatile int tone = 8000;//音调
+    private volatile int pitch = 50;//音高
     private Context context;
     private volatile boolean loop = true;
     private volatile boolean isSpeaking = false;
@@ -60,8 +59,8 @@ public class TTS implements SynthesisCallback {
         if (audioTrack == null) {
             audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
                     16000,
-                    AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT,
-                    AudioTrack.getMinBufferSize(16000, AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT)
+                    AudioFormat.CHANNEL_CONFIGURATION_MONO,AudioFormat.ENCODING_PCM_16BIT,
+                    AudioTrack.getMinBufferSize(16000, AudioFormat.CHANNEL_CONFIGURATION_MONO , AudioFormat.ENCODING_PCM_16BIT)*2
                     , AudioTrack.MODE_STREAM);
             audioTrack.play();
         }
@@ -69,7 +68,7 @@ public class TTS implements SynthesisCallback {
             while (loop) {
                 text = textQueue.poll();
                 if (text != null) {
-                    ttsService.onSynthesizeText(text, rate, this);
+                    ttsService.onSynthesizeText(text,rate,pitch,this);
                 }
                 SystemClock.sleep(50L);
             }
@@ -83,11 +82,11 @@ public class TTS implements SynthesisCallback {
      * @param context 上下文
      * @param speaker  发音人  TTSConstants
      * @param rate 速度
-     * @param tone 音调
+     * @param pitch 音高
      */
-    public void init(Context context, String speaker, int rate, int tone) {
+    public void init(Context context, String speaker, int rate, int pitch) {
         setRate(rate);
-        setTone(tone);
+        setPitch(pitch);
         init(context, speaker);
     }
 
@@ -194,7 +193,6 @@ public class TTS implements SynthesisCallback {
 
     @Override
     public int audioAvailable(byte[] buffer, int offset, int length) {
-        audioTrack.setPlaybackRate(tone);
         audioTrack.write(buffer, offset, length);
         return 0;
     }
@@ -243,18 +241,18 @@ public class TTS implements SynthesisCallback {
     }
 
     /**
-     * 获取音调
-     * @return 音调
+     * 获取音高
+     * @return 音高
      */
-    public int getTone() {
-        return tone;
+    public int getPitch() {
+        return pitch;
     }
 
     /**
-     * 音调 8000为正常音调 越高音调越高 例如设为 8000*2 就是正常音调高八度
-     * @param tone 音调
+     * 音高 50 为正常音高 取值0-100
+     * @param pitch 音高
      */
-    public void setTone(int tone) {
-        this.tone = tone;
+    public void setPitch(int pitch) {
+        this.pitch = pitch;
     }
 }
