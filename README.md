@@ -28,7 +28,7 @@ android {
 }
 dependencies {
     ...
-	 implementation 'com.github.cczhr:voice-tts:1.0.1'
+	 implementation 'com.github.cczhr:voice-tts:1.0.2'
 }
 ```
 
