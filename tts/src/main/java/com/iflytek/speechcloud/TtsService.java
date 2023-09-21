@@ -140,7 +140,7 @@ public class TtsService  {
         Log.e(TAG, "onSynthesizeText---3--");
         callback.start(16000, 2, 1);
         LogAgent.getLogAgent().onStatistic((Context) null, LogAgent.KEY_SUB_TYPE_SERVICE, LogConstants.LOG_BINDER_SUB_TYPE_TTS_LOCAL);
-        this.mAisound.speak(text, 0, 0, 0, convertToLocalSpeecd(rate), convertToLocalParam(pitch), 50, this.mAisoundListener);// convertToLocalSpeecd(rate)
+        this.mAisound.speak(text, 0, 0, 0, convertToLocalSpeecd(rate), convertToLocalParam(pitch), 0, this.mAisoundListener);// convertToLocalSpeecd(rate)
         Log.e(TAG, "onSynthesizeText---4--");
         callback.done();
 
