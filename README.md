@@ -28,7 +28,7 @@ android {
 }
 dependencies {
     ...
-	 implementation 'com.github.cczhr:voice-tts:1.0.2'
+	 implementation 'com.github.cczhr:voice-tts:1.0.3'
 }
 ```
 
@@ -38,6 +38,7 @@ TTS tts=TTS.getInstance();//获取单例对象
 tts.init(this);//初始化
 tts.speakText("这是一条测试语音");//语音合成
 tts.isSpeaking();//是否正在播放中
+tts.setTTSCallback(TTSCallback ttsCallback)//播放状态回调
 //在程序结束时调用
 tts.release();//释放资源
 ```
