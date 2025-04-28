@@ -3,7 +3,7 @@ plugins {
     id 'maven-publish'
 }
 group = 'com.cczhr'
-version = '1.0.2'
+version = '1.0.3'
 afterEvaluate {
     publishing {
         publications {
@@ -11,7 +11,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.cczhr'//创建项目的包名
                 artifactId = 'tts'//项目的唯一名称
-                version = '1.0.2'//版本号
+                version = '1.0.3'//版本号
             }
         }
     }
@@ -28,7 +28,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 30
         versionCode 2
-        versionName "1.0.1"
+        versionName "1.0.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"

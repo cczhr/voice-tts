@@ -35,6 +35,15 @@ public class TTS implements SynthesisCallback {
     private Queue<String> textQueue;
     private volatile String text = null;
     private volatile boolean isFlush = false;//音调
+    private TTSCallback ttsCallback;
+
+    /**
+     * 设置监听回调
+     * @param ttsCallback
+     */
+    public void setTTSCallback(TTSCallback ttsCallback) {
+        this.ttsCallback = ttsCallback;
+    }
 
     /**
      * 获取TTS单例对象
@@ -188,6 +197,8 @@ public class TTS implements SynthesisCallback {
     @Override
     public int start(int sampleRateInHz, int audioFormat, int channelCount) {
         isSpeaking=true;
+        if (ttsCallback!= null)
+            ttsCallback.onStart();
         return 0;
     }
 
@@ -200,6 +211,8 @@ public class TTS implements SynthesisCallback {
     @Override
     public int done() {
         isSpeaking=false;
+        if (ttsCallback!= null)
+            ttsCallback.onFinish();
         return 0;
     }
 
